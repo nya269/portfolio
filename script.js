@@ -1,26 +1,19 @@
-function addTask() {
-    let taskInput = document.getElementById("taskInput");
-    let taskText = taskInput.value.trim();
+document.addEventListener("DOMContentLoaded", function () {
+    // Effet de défilement fluide sur les liens de navigation
+    document.querySelectorAll("nav ul li a").forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+            document.getElementById(targetId).scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    });
 
-    if (taskText === "") {
-        alert("Veuillez entrer une tâche !");
-        return;
-    }
-
-    let li = document.createElement("li");
-    li.innerHTML = `
-        <span onclick="toggleTask(this)">${taskText}</span>
-        <button class="delete-btn" onclick="deleteTask(this)">X</button>
-    `;
-
-    document.getElementById("taskList").appendChild(li);
-    taskInput.value = "";
-}
-
-function toggleTask(element) {
-    element.parentElement.classList.toggle("done");
-}
-
-function deleteTask(button) {
-    button.parentElement.remove();
-}
+    // Animation sur le formulaire après envoi
+    document.querySelector("form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        alert("Merci pour votre message !");
+        this.reset();
+    });
+});
